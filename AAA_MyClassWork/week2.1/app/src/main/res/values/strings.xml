@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">reportProblems</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_clear">Clear</string>
+    <string name="acknowlege">Thank you for reporting your problem. Problem id:%s</string>
+    <string name="initialMessage">Enter your problem here and press OK or Clear</string>
+</resources>
