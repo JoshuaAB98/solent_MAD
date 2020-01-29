@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">mapsTool</string>
+    <string name="submitBtn">Submit!</string>
+    <string name="resetBtn">Reset!</string>
+    <string name="latLabel">Latitude:</string>
+    <string name="LonLabel">Longitude:</string>
+</resources>
