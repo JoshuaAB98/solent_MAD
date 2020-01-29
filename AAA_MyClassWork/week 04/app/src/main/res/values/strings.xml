@@ -4,4 +4,8 @@
     <string name="resetBtn">Reset!</string>
     <string name="latLabel">Latitude:</string>
     <string name="LonLabel">Longitude:</string>
+    <string name="chooseMap">Choose Map...</string>
+    <string name="hikebikemapview">Hike bike map view</string>
+    <string name="regularview">Regular view</string>
+    <string name="selectmap">Select map</string>
 </resources>

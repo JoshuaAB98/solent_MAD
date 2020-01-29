@@ -26,6 +26,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     MapView mv;
 
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(item.getItemId() == R.id.chooseMap)
+        {
+            Intent intent = new Intent(this,MapChooseActivity.class);
+            startActivityForResult(intent,0);
+            return true;
+        }
+        return false;
+    }
+
+    protected void onActivityResult(int requestCode,int resultCode,Intent intent)
+    {
+
+        if(requestCode==0)
+        {
+
+            if (resultCode==RESULT_OK)
+            {
+                Bundle extras=intent.getExtras();
+                boolean hikebikemap = extras.getBoolean("com.example.hikebikemap");
+                if(hikebikemap==true)
+                {
+                    mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+                }
+                else
+                {
+                    mv.setTileSource(TileSourceFactory.MAPNIK);
+                }
+            }
+        }
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-        
+
     }
 }
