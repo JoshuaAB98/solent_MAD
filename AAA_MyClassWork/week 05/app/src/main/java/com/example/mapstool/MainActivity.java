@@ -42,21 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent,0);
             return true;
         }
-        else if(item.getItemId() == R.id.changePos)
-        {
-            Intent intent = new Intent(this, ChangePositionActivity.class);
-            intent.putExtra("defaultLat", DEFAULT_LAT);
-            intent.putExtra("defaultLon", DEFAULT_LON);
-            startActivityForResult(intent,1);
-            return true;
-        }
-        else if(item.getItemId() == R.id.changeZoom)
-        {
-            Intent intent = new Intent(this, ChangeZoomActivity.class);
-            intent.putExtra("currentZoom", mv.getZoomLevel());
-            startActivityForResult(intent, 2);
-            return true;
-        }
         return false;
     }
 
@@ -80,25 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        else if(requestCode==1){
-            if(resultCode==RESULT_OK){
-                Bundle extras=intent.getExtras();
-
-                Double lon = extras.getDouble("Latitude");
-                Double lat = extras.getDouble("Longitude");
-                if (lon != null && lat != null) {
-                    mv.getController().setCenter(new GeoPoint(lat, lon));
-                }
-            }
-        }
-        else if(requestCode==2){
-            if(resultCode==RESULT_OK){
-                //TODO Add code for changing the map Zoom
-                Bundle extras=intent.getExtras();
-                int newZoom = extras.getInt("zoom");
-                mv.getController().setZoom(newZoom);
-            }
-        }
     }
 
 
@@ -112,21 +78,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // set default values lat lon
-//        EditText lonEditText = (EditText) findViewById(R.id.longitude);
-//        lonEditText.setText(DEFAULT_LON.toString());
-//        EditText latEditText = (EditText) findViewById(R.id.latitude);
-//        latEditText.setText(DEFAULT_LAT.toString());
+        EditText lonEditText = (EditText) findViewById(R.id.longitude);
+        lonEditText.setText(DEFAULT_LON.toString());
+        EditText latEditText = (EditText) findViewById(R.id.latitude);
+        latEditText.setText(DEFAULT_LAT.toString());
 
-//        Button c = (Button) findViewById(R.id.submitBtn);
-//        c.setOnClickListener(this);
-//
-//        Button d = (Button) findViewById(R.id.resetBtn);
-//        d.setOnClickListener(this);
+        Button c = (Button) findViewById(R.id.submitBtn);
+        c.setOnClickListener(this);
+
+        Button d = (Button) findViewById(R.id.resetBtn);
+        d.setOnClickListener(this);
 
         mv = (MapView) findViewById(R.id.map1);
 
         mv.setBuiltInZoomControls(true);
         mv.getController().setZoom(DEFAULT_ZOOM);
+        // zoom was 16
+        // mv.getController().setCenter(new GeoPoint(51.05,-0.72));
+        // aLatitude: 50.9246, aLongitude:  -1.3705 burnett close
+        // http://www.informationfreeway.org/
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT, DEFAULT_LON));
     }
 
@@ -180,27 +150,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View view) {
-//        EditText lonEditText = (EditText) findViewById(R.id.longitude);
-//        EditText latEditText = (EditText) findViewById(R.id.latitude);
+        EditText lonEditText = (EditText) findViewById(R.id.longitude);
+        EditText latEditText = (EditText) findViewById(R.id.latitude);
 
-//        switch (view.getId()) {
-//            case R.id.submitBtn: // ok - just continue
-//                break;
-//            case R.id.resetBtn: // reset default
-//                lonEditText.setText(DEFAULT_LON.toString());
-//                latEditText.setText(DEFAULT_LAT.toString());
-//                mv.getController().setZoom(DEFAULT_ZOOM);
-//                break;
-//            default:
-//                break;
-//        }
+        switch (view.getId()) {
+            case R.id.submitBtn: // ok - just continue
+                break;
+            case R.id.resetBtn: // reset default
+                lonEditText.setText(DEFAULT_LON.toString());
+                latEditText.setText(DEFAULT_LAT.toString());
+                mv.getController().setZoom(DEFAULT_ZOOM);
+                break;
+            default:
+                break;
+        }
 
         // load and check values
-//        Double lon = parseLat(lonEditText);
-//        Double lat = parseLat(latEditText);
-//        if (lon != null && lat != null) {
-//            mv.getController().setCenter(new GeoPoint(lat, lon));
-//        }
+        Double lon = parseLat(lonEditText);
+        Double lat = parseLat(latEditText);
+        if (lon != null && lat != null) {
+            mv.getController().setCenter(new GeoPoint(lat, lon));
+        }
 
     }
 

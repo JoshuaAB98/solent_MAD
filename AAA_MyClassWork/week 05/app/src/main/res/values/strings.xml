@@ -8,9 +8,4 @@
     <string name="hikebikemapview">Hike bike map view</string>
     <string name="regularview">Regular view</string>
     <string name="selectmap">Select map</string>
-    <string name="changePos">Change Map Position</string>
-    <string name="changeZoom">Change Map Zoom</string>
-    <string name="zoomIn">Zoom In</string>
-    <string name="zoomOut">Zoom Out</string>
-    <string name="defaultZoom">Default Zoom</string>
 </resources>
