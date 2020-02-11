@@ -13,4 +13,5 @@
     <string name="zoomIn">Zoom In</string>
     <string name="zoomOut">Zoom Out</string>
     <string name="defaultZoom">Default Zoom</string>
+    <string name="viewList">View List</string>
 </resources>
