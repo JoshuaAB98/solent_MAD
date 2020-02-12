@@ -27,6 +27,7 @@
         <activity android:name=".ChangePositionActivity" android:label="@string/changePos"></activity>
         <activity android:name=".ChangeZoomActivity" android:label="@string/changeZoom"></activity>
         <activity android:name=".ExampleListActivity" android:label="List"></activity>
+        <activity android:name=".MapPreferences" android:label="@string/prefs"></activity>
     </application>
 
 </manifest>

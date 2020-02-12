@@ -1,6 +1,8 @@
 package com.example.mapstool;
 
 import android.app.ListActivity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -21,9 +23,9 @@ import org.osmdroid.views.MapView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final Double DEFAULT_LAT = 50.9246;
-    public static final Double DEFAULT_LON = -1.3719;
-    public static final Integer DEFAULT_ZOOM = 11;
+    public static Double DEFAULT_LAT = 50.9246;
+    public static Double DEFAULT_LON = -1.3719;
+    public static Integer DEFAULT_ZOOM = 11;
 
     MapView mv;
 
@@ -58,10 +60,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, 2);
             return true;
         }
+        else if(item.getItemId() == R.id.preferences)
+        {
+            Intent intent = new Intent(this, MapPreferences.class);
+            startActivityForResult(intent, 3);
+            return true;
+        }
         else if(item.getItemId() == R.id.viewList)
         {
             Intent intent = new Intent(this, ExampleListActivity.class);
-            startActivityForResult(intent, 3);
+            startActivityForResult(intent, 4);
             return true;
         }
         return false;
@@ -134,6 +142,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View view) {
 
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        double lat = Double.parseDouble ( prefs.getString("lat", "50.9") );
+        double lon = Double.parseDouble ( prefs.getString("lon", "-1.4") );
+        int zoom =  Integer.parseInt(prefs.getString("zoom", "11"));
+        boolean autodownload = prefs.getBoolean("autodownload", true);
+        String pizzaCode = prefs.getString("pizza", "NONE");
+
+        // do something with the preference data...
     }
 
 

@@ -4,4 +4,5 @@
     <item android:id="@+id/changePos" android:title="@string/changePos"/>
     <item android:id="@+id/changeZoom" android:title="@string/changeZoom"/>
     <item android:id="@+id/viewList" android:title="@string/viewList"/>
+    <item android:id="@+id/preferences" android:title="@string/prefs"/>
 </menu>
