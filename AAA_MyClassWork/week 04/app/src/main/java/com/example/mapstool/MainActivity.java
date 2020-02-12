@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, 2);
             return true;
         }
+        else if(item.getItemId() == R.id.viewList)
+        {
+            Intent intent = new Intent(this, ExampleListActivity.class);
+            startActivityForResult(intent, 3);
+            return true;
+        }
         return false;
     }
 

@@ -26,7 +26,7 @@
         <activity android:name=".MapChooseActivity" android:label="@string/selectmap"></activity>
         <activity android:name=".ChangePositionActivity" android:label="@string/changePos"></activity>
         <activity android:name=".ChangeZoomActivity" android:label="@string/changeZoom"></activity>
-        <activity android:name=".ListActivity" android:label="List"></activity>
+        <activity android:name=".ExampleListActivity" android:label="List"></activity>
     </application>
 
 </manifest>
