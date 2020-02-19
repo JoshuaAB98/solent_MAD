@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.content.Context;
+import android.content.Intent;
 
 public class ExampleListActivity extends ListActivity
 {
     String[] names, details;
+    int[] latitudes, longitudes, zooms;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -20,6 +22,11 @@ public class ExampleListActivity extends ListActivity
         names = new String[] { "The Crown", "The Cowherds", "The Two Brothers", "Piccolo Mondo" };
         details = new String[] { "pub, 2.5 miles north", "pub, 1.5 miles north",
                 "pub, 3.5 miles northeast" , "Italian restaurant, 0.5 miles west" };
+        latitudes = new int[]{54,56,58,60};
+        longitudes = new int []{-2, -4, -6, -8};
+        zooms = new int[]{5,5,5,5};
+
+
         MyAdapter adapter = new MyAdapter();
         setListAdapter(adapter);
     }
@@ -27,6 +34,9 @@ public class ExampleListActivity extends ListActivity
     public void onListItemClick(ListView lv, View view, int index, long id)
     {
         // handle list item selection
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+
     }
 
 

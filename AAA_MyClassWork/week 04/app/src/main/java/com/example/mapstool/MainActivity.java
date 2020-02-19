@@ -23,10 +23,11 @@ import org.osmdroid.views.MapView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static Double DEFAULT_LAT = 50.9246;
-    public static Double DEFAULT_LON = -1.3719;
-    public static Integer DEFAULT_ZOOM = 11;
+    public static Double DEFAULT_LAT;
+    public static Double DEFAULT_LON;
+    public static Integer DEFAULT_ZOOM;
 
+    String mapStyle;
     MapView mv;
 
 
@@ -39,31 +40,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if(item.getItemId() == R.id.chooseMap)
+        if(item.getItemId() == R.id.preferences)
         {
-            Intent intent = new Intent(this,MapChooseActivity.class);
-            startActivityForResult(intent,0);
+            Intent intent = new Intent(this, MapPreferences.class);
+            startActivityForResult(intent, 3);
             return true;
         }
         else if(item.getItemId() == R.id.changePos)
         {
             Intent intent = new Intent(this, ChangePositionActivity.class);
-            intent.putExtra("defaultLat", DEFAULT_LAT);
-            intent.putExtra("defaultLon", DEFAULT_LON);
-            startActivityForResult(intent,1);
+            intent.putExtra("defaultLongitude", DEFAULT_LON);
+            intent.putExtra("defaultLatitude", DEFAULT_LAT);
+            startActivityForResult(intent, 1);
             return true;
         }
         else if(item.getItemId() == R.id.changeZoom)
         {
             Intent intent = new Intent(this, ChangeZoomActivity.class);
-            intent.putExtra("currentZoom", mv.getZoomLevel());
+            intent.putExtra("defaultZoom", DEFAULT_ZOOM);
             startActivityForResult(intent, 2);
-            return true;
-        }
-        else if(item.getItemId() == R.id.preferences)
-        {
-            Intent intent = new Intent(this, MapPreferences.class);
-            startActivityForResult(intent, 3);
             return true;
         }
         else if(item.getItemId() == R.id.viewList)
@@ -78,24 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode,int resultCode,Intent intent)
     {
 
-        if(requestCode==0)
-        {
-
-            if (resultCode==RESULT_OK)
-            {
-                Bundle extras=intent.getExtras();
-                boolean hikebikemap = extras.getBoolean("com.example.hikebikemap");
-                if(hikebikemap==true)
-                {
-                    mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
-                }
-                else
-                {
-                    mv.setTileSource(TileSourceFactory.MAPNIK);
-                }
-            }
-        }
-        else if(requestCode==1){
+        if(requestCode==1){
             if(resultCode==RESULT_OK){
                 Bundle extras=intent.getExtras();
 
@@ -108,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(requestCode==2){
             if(resultCode==RESULT_OK){
-                //TODO Add code for changing the map Zoom
                 Bundle extras=intent.getExtras();
                 int newZoom = extras.getInt("zoom");
                 mv.getController().setZoom(newZoom);
@@ -124,13 +101,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // This line sets the user agent, a requirement to download OSM maps
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
 
-        setContentView(R.layout.activity_main);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        DEFAULT_LAT = Double.parseDouble ( prefs.getString("lat", "50.9") );
+        DEFAULT_LON = Double.parseDouble ( prefs.getString("lon", "-1.4") );
+        DEFAULT_ZOOM =  Integer.parseInt(prefs.getString("zoom", "11"));
+        mapStyle = prefs.getString("map", "Standard Map");
 
+        setContentView(R.layout.activity_main);
         mv = (MapView) findViewById(R.id.map1);
+
+        if(mapStyle.equals("HB")){
+            mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+        }
+        else{
+            mv.setTileSource(TileSourceFactory.MAPNIK);
+        }
 
         mv.setBuiltInZoomControls(true);
         mv.getController().setZoom(DEFAULT_ZOOM);
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT, DEFAULT_LON));
+    }
+
+
+
+
+    public void onResume()
+    {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        DEFAULT_LAT = Double.parseDouble ( prefs.getString("lat", "50.9") );
+        DEFAULT_LON = Double.parseDouble ( prefs.getString("lon", "-1.4") );
+        DEFAULT_ZOOM =  Integer.parseInt(prefs.getString("zoom", "11"));
+        boolean autodownload = prefs.getBoolean("autodownload", true);
+        mapStyle = prefs.getString("map", "ST");
+
+        if(mapStyle.equals("HB")){
+            mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+        }
+        else{
+            mv.setTileSource(TileSourceFactory.MAPNIK);
+        }
+    }
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
 
@@ -141,25 +157,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onClick(View view) {
-
-    }
-
-    public void onResume()
-    {
-        super.onResume();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        double lat = Double.parseDouble ( prefs.getString("lat", "50.9") );
-        double lon = Double.parseDouble ( prefs.getString("lon", "-1.4") );
-        int zoom =  Integer.parseInt(prefs.getString("zoom", "11"));
-        boolean autodownload = prefs.getBoolean("autodownload", true);
-        String pizzaCode = prefs.getString("pizza", "NONE");
-
-        // do something with the preference data...
-    }
-
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }

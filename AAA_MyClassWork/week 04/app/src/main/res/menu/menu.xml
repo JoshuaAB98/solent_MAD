@@ -1,6 +1,5 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/chooseMap" android:title="@string/chooseMap"/>
     <item android:id="@+id/changePos" android:title="@string/changePos"/>
     <item android:id="@+id/changeZoom" android:title="@string/changeZoom"/>
     <item android:id="@+id/viewList" android:title="@string/viewList"/>
